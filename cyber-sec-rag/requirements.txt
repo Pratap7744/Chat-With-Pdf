@@ -1,0 +1,9 @@
+fastapi[standard]
+streamlit
+mistralai
+langchain-openai
+langchain-experimental
+langchain
+supabase
+google-generativeai
+python-dotenv

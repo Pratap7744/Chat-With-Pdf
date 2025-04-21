@@ -1,0 +1,661 @@
+/* PdfUploader.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background-color: #111111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  border-right: 1px solid #333;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.sidebar-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.upload-pdf-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #9333EA;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  justify-content: center;
+}
+
+.upload-pdf-button:hover {
+  background-color: #7e22ce;
+}
+
+.pdf-list-header {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #9ca3af;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #2d2d2d;
+}
+
+.pdf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pdf-item:hover, .pdf-item.active {
+  background-color: #2d2d2d;
+}
+
+.pdf-item.active {
+  border-left: 3px solid #9333EA;
+}
+
+.pdf-item svg {
+  color: #9ca3af;
+  min-width: 16px;
+}
+
+.pdf-item span {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Main content styles */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+}
+
+.content-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.content-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.pdf-highlight {
+  color: #9333EA;
+  background-color: #f0e6fa;
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.orange-text {
+  color: #f97316;
+}
+
+.upload-container {
+  width: 80%;
+  max-width: 800px;
+  height: 300px;
+  border: 2px dashed #d1d5db;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.upload-container:hover {
+  border-color: #9333EA;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  color: #6b7280;
+}
+
+.upload-text {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.upload-button-container {
+  margin-top: 1rem;
+}
+
+.upload-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #9333EA;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-button:hover {
+  background-color: #7e22ce;
+}
+
+.annotation {
+  position: absolute;
+  top: -1.5rem;
+  right: 2rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.handwritten-text {
+  font-family: 'Comic Sans MS', cursive;
+  color: #9333EA;
+  font-size: 0.9rem;
+  transform: rotate(-5deg);
+}
+
+.arrow {
+  position: absolute;
+  right: -3rem;
+  bottom: -1rem;
+  transform: rotate(-30deg);
+}
+
+/* Chat Interface */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.chat-header {
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header h2 {
+  font-size: 1.2rem;
+  color: #111827;
+  font-weight: 600;
+}
+
+.message-container {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f9fafb;
+}
+
+.message-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.bot-message {
+  justify-content: flex-start;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.message {
+  max-width: 70%;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.bot-message .message {
+  background-color: white;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.user-message .message {
+  background-color: #9333EA;
+  color: white;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.message p {
+  margin: 0;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.typing-message {
+  padding: 0.75rem 1.25rem;
+  min-width: 100px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-input-container {
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.loading-popup {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #9333EA;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add these styles to your PdfUploader.css file */
+
+.split-view {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.pdf-viewer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e2e8f0;
+  height: 100%;
+  min-width: 0; /* Prevent overflow */
+}
+
+.pdf-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.page-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator, .zoom-level {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.pdf-document {
+  flex: 1;
+  overflow: auto;
+  background-color: #f8fafc;
+}
+
+.pdf-document iframe {
+  border: none;
+}
+
+.pdf-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #64748b;
+}
+
+/* Adjust chat interface to take half space */
+.chat-interface {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0; /* Prevent overflow */
+}
+
+.chat-header {
+  padding: 10px 16px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.chat-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.chat-input-container {
+  padding: 10px 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Make sure the app container uses full height */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .split-view {
+    flex-direction: column;
+  }
+  
+  .pdf-viewer-container, .chat-interface {
+    height: 50vh;
+  }
+}
+
+/* Add these styles to your PdfUploader.css file */
+
+.chat-interface.full-width {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.chat-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-container {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.bot-message {
+  align-items: flex-start;
+}
+
+.user-message {
+  align-items: flex-end;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.bot-message .message {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.user-message .message {
+  background-color: #9333EA;
+  color: white;
+}
+
+.message p {
+  margin: 0;
+  word-break: break-word;
+}
+
+.typing-message {
+  padding: 16px;
+}
+
+.chat-input-container {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+/* Add these to your PdfUploader.css file */
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.sidebar-link svg {
+  margin-right: 12px;
+}
+
+.no-pdfs-message {
+  color: #9ca3af;
+  font-size: 14px;
+  padding: 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Update the chat interface to always show appropriately */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.message-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #f9fafb;
+}
+
+/* Style for when chat is disabled (no PDF uploaded) */
+.chat-input-container form input:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}
+/* Add these to your existing CSS file */
+
+.sidebar-link.active {
+  background-color: #f3e8ff; /* Light purple background for active item */
+  color: #9333EA; /* Purple text color for active item */
+  font-weight: 500;
+}
+
+.sidebar-link.active svg {
+  stroke: #9333EA; /* Purple icon color for active item */
+}
